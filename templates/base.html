@@ -5,9 +5,13 @@
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
 </head>
 <body>
-  <main>
+	<li><a href="{% url 'home' %}">Home</a></li>
+	<li><a href="{% url 'about' %}">About</a></li>
+	<li> Currently logged in as {{user.username}} </li>
+	<li><a href="{% url 'profile' %}">My Profile</a></li>
+	<main>
     {% block content %}
     {% endblock %}
-  </main>
+</main>
 </body>
 </html>

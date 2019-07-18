@@ -5,3 +5,6 @@ def profile(request):
         'profiles': profile
     }
     return render(request, 'profile.html', context)
+
+def about(request):
+	return render(request, 'about.html')
