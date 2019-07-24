@@ -3,7 +3,7 @@ from .models import Profile, Post
 
 def profile(request):
     profile = Profile.objects.get(user=request.user)
-    post = Post.objects.get(post=request.profile)
+    post = Post.objects.filter(profile=profile)
     context = {
         'profile': profile,
         'post': post,

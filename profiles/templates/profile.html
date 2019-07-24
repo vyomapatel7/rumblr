@@ -6,9 +6,12 @@
             <h2>  {{ profile.title }}  </h2>
             <p> {{ profile.bio }} </p>
 	</div>
+	{% for post in post %}
 	<div class= "Posts">
 		<h2> {{ post.title }} </h2>
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
+	</div>
+	{% endfor %}
 {% endblock content %}
 </body>
 </html>
