@@ -1,13 +1,21 @@
 from django.shortcuts import render
-from .models import Profile
+from .models import Profile, Post
 
-def profile(request, user):
-	profile = Profile.objects.get(user=request.user)
+def profile(request):
+    profile = Profile.objects.get(user=request.user)
+    post = Post.objects.get(post=request.profile)
     context = {
-        'profile': profile
-        'user': request.user
+        'profile': profile,
+        'post': post,
     }
     return render(request, 'profile.html', context)
 
 def about(request):
 	return render(request, 'about.html')
+
+def home(request):
+	profile = Profile.objects.all()
+	context = {
+		'profile': profile,
+	}
+	return render(request, 'home.html', context)

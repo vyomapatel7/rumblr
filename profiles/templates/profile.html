@@ -3,9 +3,12 @@
 <html>
 <body>
 	<div class= "Profile">
-            <h2> {{ p.title }} </h2>
+            <h2>  {{ profile.title }}  </h2>
             <p> {{ profile.bio }} </p>
 	</div>
+	<div class= "Posts">
+		<h2> {{ post.title }} </h2>
+		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
 {% endblock content %}
 </body>
 </html>
