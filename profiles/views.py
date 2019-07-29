@@ -19,3 +19,5 @@ def home(request):
 		'profile': profile,
 	}
 	return render(request, 'home.html', context)
+
+
