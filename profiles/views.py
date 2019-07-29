@@ -1,7 +1,16 @@
 from django.shortcuts import render
 from .models import Profile, Post
 
-def profile(request):
+def profile(request, id):
+    profile = Profile.objects.get(id=id)
+    post = Post.objects.filter(profile=profile)
+    context = {
+        'profile': profile,
+        'post': post,
+    }
+    return render(request, 'profile.html', context)
+
+def myprofile(request):
     profile = Profile.objects.get(user=request.user)
     post = Post.objects.filter(profile=profile)
     context = {
