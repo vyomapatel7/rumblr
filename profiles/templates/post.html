@@ -3,17 +3,16 @@
 {% block content %}
 <html>
 <body>
+	<br>
 	<div class= "Profile">
-            <h2>  {{ profile.title }}  </h2>
+            <a href="{% url 'profile' id=profile.id %}"> {{ profile.title }}  </a>
             <p> {{ profile.bio }} </p>
-            <a href="{% url 'edit_profile' id=profile.id %}"> Edit me! </a>
 	</div>
-	{% for post in post %}
-	<div class= "Posts">
-		<a href="{% url 'post' id=post.id %}"> {{ post.title }} </a>
+	<div class= "Post">
+		<h> {{ post.title }} </h>
+		<p> {{ post.post }}
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
 	</div>
-	{% endfor %}
 {% endblock content %}
 </body>
 </html>

@@ -8,11 +8,19 @@
 <body>
 	<li><a href="{% url 'home' %}">Home</a></li>
 	<li><a href="{% url 'about' %}">About</a></li>
-	<li> Currently logged in as {{user.username}} </li>
-	<li><a href="{% url 'myprofile' %}">My Profile</a></li>
+		{% if user.is_authenticated %}
+			<li> Currently logged in as {{user.username}} </li>
+			<li><a href="{% url 'myprofile' %}">My Profile</a></li>
+			<li><a href="{% url 'create' %}">CreateProfile</a></li>
+			<li><a href="{% url 'logout' %}">logout</a></li>
+		{% else %}
+			<p>You are not logged in</p>
+  			<a href="{% url 'login' %}">login</a> |
+  			<a href="{% url 'signup' %}">signup</a>
+		{% endif %}
 	<main>
-    {% block content %}
-    {% endblock %}
-</main>
+    	{% block content %}
+    	{% endblock %}
+	</main>
 </body>
 </html>
