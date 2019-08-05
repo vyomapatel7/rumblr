@@ -14,6 +14,9 @@
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
 	</div>
 	{% endfor %}
+	<div>
+		<a href="{% url 'create_post' %}"> Create a new post! </a>
+	</div>
 {% endblock content %}
 </body>
 </html>

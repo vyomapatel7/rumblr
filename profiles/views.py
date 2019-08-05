@@ -1,6 +1,21 @@
 from django.shortcuts import render, redirect, reverse
 from .models import Profile, Post
-from profiles.forms import ProfileEditForm
+from profiles.forms import ProfileEditForm, CreatePostForm
+
+def create_post(request):
+    form_class = CreatePostForm
+    if request.method == "POST":
+        form = form_class(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', id=profile.id)
+        else:
+            form = form_class(instance=post)
+
+        return render(request, 'create_post.html', {
+            'post': post,
+            'form': form,
+        })
 
 
 def profile(request, id):
