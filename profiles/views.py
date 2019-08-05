@@ -8,7 +8,8 @@ def create_post(request):
         form = form_class(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.user = request.user
+            my_p = Profile.objects.get(user=request.user)
+            post.profile = my_p
             post.save()
             return redirect('myprofile')
 
