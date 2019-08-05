@@ -4,18 +4,20 @@ from profiles.forms import ProfileEditForm, CreatePostForm
 
 def create_post(request):
     form_class = CreatePostForm
-    if request.method == "POST":
-        form = form_class(request.POST, instance=post)
+    if request.method == 'POST':
+        form = form_class(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('profile', id=profile.id)
-        else:
-            form = form_class(instance=post)
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            return redirect('myprofile')
 
-        return render(request, 'create_post.html', {
-            'post': post,
-            'form': form,
-        })
+    else:
+        form = form_class()
+
+    return render(request, 'profiles/create_post.html', {
+        'form': form,
+    })
 
 
 def profile(request, id):
