@@ -6,7 +6,7 @@ def edit_post(request, id):
     post = Post.objects.get(id=id)
     form_class = CreatePostForm
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = form_class(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
@@ -29,7 +29,7 @@ def create_post(request):
             my_p = Profile.objects.get(user=request.user)
             post.profile = my_p
             post.save()
-            return redirect('myprofile')
+            return redirect('myprofile', id=profile.id)
 
     else:
         form = form_class()
