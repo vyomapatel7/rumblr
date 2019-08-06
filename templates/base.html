@@ -10,8 +10,12 @@
 	<li><a href="{% url 'about' %}">About</a></li>
 		{% if user.is_authenticated %}
 			<li> Currently logged in as {{user.username}} </li>
-			<li><a href="{% url 'myprofile' %}">My Profile</a></li>
+			{% if user.has_profile %}
+				<li><a href="{% url 'myprofile' %}">My Profile</a></li>
+			{% endif %}
+			{% if user.doesnothave_profile %}
 			<li><a href="{% url 'create' %}">CreateProfile</a></li>
+			{% endif %}
 			<li><a href="{% url 'logout' %}">logout</a></li>
 		{% else %}
 			<p>You are not logged in</p>

@@ -2,6 +2,24 @@ from django.shortcuts import render, redirect, reverse
 from .models import Profile, Post
 from profiles.forms import ProfileEditForm, CreatePostForm
 
+def edit_post(request, id):
+    post = Post.objects.get(id=id)
+    form_class = CreatePostForm
+    if request.method == 'POST':
+        form = form_class(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('myprofile')
+    else:
+        form = form_class(instance=post)
+
+    return render(request, 'edit_post.html', {
+        'post': post,
+        'form': form,
+    })
+
+
 def create_post(request):
     form_class = CreatePostForm
     if request.method == 'POST':
@@ -104,6 +122,7 @@ def myprofile(request):
         return render(request, 'profile.html', context)
     else:
         form = form_class(instance=profile)
+
 
 def about(request):
 	return render(request, 'about.html')
