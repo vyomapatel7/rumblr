@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('post/<id>/', views.post, name='post'),
@@ -13,4 +15,6 @@ urlpatterns = [
     path('profiles/user/following', views.following, name='following'),
     path('profiles/followers/', views.follower, name='followers'),
     path('search', views.search, name='search'),
-]
+    path('profiles/<id>/follow', views.follow, name='follow'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
++ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Profile, Post, Connection
-from users.models import CustomUser
 from profiles.forms import ProfileEditForm, CreatePostForm
 
 
@@ -37,6 +36,11 @@ def following(request):
         'following': following,
     }
     return render(request, 'following.html', context)
+
+def follow(request):
+    follow = Connection.objects.create(follower=request.user)
+    follow.save()
+    return redirect('following')
 
 
 def delete_post(request, id):
