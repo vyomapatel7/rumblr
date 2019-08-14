@@ -2,28 +2,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'site.css' %}">
 </head>
 <body>
-	<li><a href="{% url 'home' %}">Home</a></li>
-	<li><a href="{% url 'about' %}">About</a></li>
-		{% if user.is_authenticated %}
-			<li> Currently logged in as {{user.username}} </li>
-			{% if user.has_profile %}
-				<li><a href="{% url 'myprofile' %}">My Profile</a></li>
+	<ul id="nav">
+		<li><a href="{% url 'home' %}">Home</a></li>
+		<li><a href="{% url 'about' %}">About</a></li>
+		<li><a href="{% url 'search' %}">Search</a></li>
+			{% if user.is_authenticated %}
+				<li> Currently logged in as {{user.username}} </li>
+				{% if user.has_profile %}
+					<li><a href="{% url 'myprofile' %}">My Profile</a></li>
+					<li><a href="{% url 'following' %}">Following</a></li>
+					<li><a href="{% url 'followers' %}">Followers</a></li>
+				{% endif %}
+				{% if user.doesnothave_profile %}
+				<li><a href="{% url 'create' %}">CreateProfile</a></li>
+				{% endif %}
+				<li><a href="{% url 'logout' %}">logout</a></li>
+			{% else %}
+				<li>You are not logged in</li>
+  				<li><a href="{% url 'login' %}">login</a></li>
+  				<li><a href="{% url 'signup' %}">signup</a></li>
 			{% endif %}
-			{% if user.doesnothave_profile %}
-			<li><a href="{% url 'create' %}">CreateProfile</a></li>
-			{% endif %}
-			<li><a href="{% url 'logout' %}">logout</a></li>
-		{% else %}
-			<p>You are not logged in</p>
-  			<a href="{% url 'login' %}">login</a> |
-  			<a href="{% url 'signup' %}">signup</a>
-		{% endif %}
+	</ul>
 	<main>
     	{% block content %}
+    		<link rel="stylesheet" href="{% static 'site.css' %}">
     	{% endblock %}
 	</main>
 </body>

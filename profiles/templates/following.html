@@ -1,0 +1,10 @@
+{% extends "base.html" %}    
+{% load static %}
+{% block content %}
+	<div class= "Profile">
+            <h1>  Following  </h1>
+            {% for connection in following %}
+            	<p> {{ connection.following }} </p>
+            {% endfor %}
+	</div>
+{% endblock content %}

@@ -1,6 +1,48 @@
-from django.shortcuts import render, redirect, reverse
-from .models import Profile, Post
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from .models import Profile, Post, Connection
+from users.models import CustomUser
 from profiles.forms import ProfileEditForm, CreatePostForm
+
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        submitbutton = request.GET.get('submit')
+        if query is not None:
+            lookups = Q(title__icontains=query) | Q(content__icontains=query)
+            results = Post.objects.filter(lookups).distinct()
+            context ={'results': results,
+                     'submitbutton': submitbutton}
+            return render(request, 'search.html', context)
+
+        else:
+            return render(request, 'search.html')
+
+    else:
+        return render(request, 'search.html')
+
+
+def follower(request):
+    follower = Connection.objects.filter(following=request.user)
+    context = {
+        'following': following,
+        'follower': follower,
+    }
+    return render(request, 'followers.html', context)
+
+
+def following(request):
+    following = Connection.objects.filter(follower=request.user)
+    context = {
+        'following': following,
+    }
+    return render(request, 'following.html', context)
+
+
+def delete_post(request, id):
+    post = Post.objects.get(id=id)
+    post.delete()
+    return redirect('myprofile')
 
 def edit_post(request, id):
     post = Post.objects.get(id=id)

@@ -4,7 +4,7 @@
 
 {% block content %}
     <br>
-    Hi {{ user.username }}! Explore profiles on rumblr 
+    <h1>Hi {{ user.username }}! Explore profiles on rumblr</h1>
         {% for profile in profile %}
             <div class= "profiles">
 	            <a href="{% url 'profile' id=profile.id %}"> {{ profile.title }}  </a>

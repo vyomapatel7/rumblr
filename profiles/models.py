@@ -17,3 +17,11 @@ class Post(models.Model):
 
 	def __str__(self):
 		return self.title
+
+
+class Connection(models.Model):
+	follower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="friendship_creator_set")
+	following = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="follow_set")
+
+	def __str__(self):
+		return self.follower.username

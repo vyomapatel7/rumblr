@@ -17,6 +17,7 @@
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
 		{% if request.user == profile.user %}
 			<a href="{% url 'edit_post' id=post.id %}"> Edit this post! </a>
+			<a href="{% url 'delete_post' id=post.id %}"> Delete this post! </a>
 		{% endif %}
 	</div>
 	{% endfor %}
