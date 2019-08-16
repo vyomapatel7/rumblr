@@ -6,6 +6,7 @@ class Profile(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True)
     bio = models.TextField(max_length=500, blank=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    profile_pic = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -25,4 +26,4 @@ class Connection(models.Model):
 	following = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="follow_set")
 
 	def __str__(self):
-		return self.follower.username
+		return self.follower.profile.title

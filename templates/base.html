@@ -16,8 +16,8 @@
 					<li><a href="{% url 'following' %}">Following</a></li>
 					<li><a href="{% url 'followers' %}">Followers</a></li>
 				{% endif %}
-				{% if user.doesnothave_profile %}
-				<li><a href="{% url 'create' %}">CreateProfile</a></li>
+				{% if not user.profile %}
+					<li><a href="{% url 'create' %}">CreateProfile</a></li>
 				{% endif %}
 				<li><a href="{% url 'logout' %}">logout</a></li>
 			{% else %}

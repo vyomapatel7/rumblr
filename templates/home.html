@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -8,6 +8,7 @@
         {% for profile in profile %}
             <div class= "profiles">
 	            <a href="{% url 'profile' id=profile.id %}"> {{ profile.title }}  </a>
+	            <p> <img src="{{ profile.profile_pic.url }}", style= "width:100px;"/> </p>
             </div>
         {% endfor %} 
 {% endblock %}

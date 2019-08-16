@@ -4,7 +4,7 @@
 	<div class= "Profile">
             <h1>  Following  </h1>
             {% for connection in following %}
-            	<p> {{ connection.following }} </p>
+            	<p> {{ connection.following.profile.title }} </p>
             {% endfor %}
 	</div>
 {% endblock content %}

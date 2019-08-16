@@ -52,7 +52,7 @@ def edit_post(request, id):
     post = Post.objects.get(id=id)
     form_class = CreatePostForm
     if request.method == 'POST':
-        form = form_class(request.POST, instance=post)
+        form = form_class(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
@@ -75,7 +75,7 @@ def create_post(request):
             my_p = Profile.objects.get(user=request.user)
             post.profile = my_p
             post.save()
-            return redirect('myprofile', id=profile.id)
+            return redirect('myprofile')
 
     else:
         form = form_class()
@@ -109,7 +109,7 @@ def edit_profile(request, id):
     profile = Profile.objects.get(id=id)
     form_class = ProfileEditForm
     if request.method == "POST":
-        form = form_class(request.POST, instance=profile)
+        form = form_class(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect('profile', id=profile.id)
@@ -162,8 +162,8 @@ def myprofile(request):
         profile = Profile.objects.get(user=request.user)
         post = Post.objects.filter(profile=profile)
         context = {
-        'profile': profile,
-        'post': post,
+            'profile': profile,
+            'post': post,
         }
         return render(request, 'profile.html', context)
     else:
@@ -173,11 +173,14 @@ def myprofile(request):
 def about(request):
 	return render(request, 'about.html')
 
+
 def home(request):
-	profile = Profile.objects.all()
-	context = {
-		'profile': profile,
-	}
-	return render(request, 'home.html', context)
+    profile = Profile.objects.all()
+    image = Post.objects.all()
+    context = {
+        'profile': profile,
+        'image': image,
+    }
+    return render(request, 'home.html', context)
 
 
