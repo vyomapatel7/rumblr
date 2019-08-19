@@ -8,7 +8,7 @@
             <p> {{ profile.bio }} </p>
             <p> <img src="{{ profile.profile_pic.url }}", style= "width:100px;"/> 
             {% if not request.user == profile.user %}
-            	<a href="{% url 'follow' id=profile.id %}"> Follow Profile! </a>
+            	<a href="{% url 'follow' %}"> Follow Profile! </a>
             {% endif %}
             {% if request.user == profile.user %}
             	<a href="{% url 'edit_profile' id=profile.id %}"> Edit your profile! </a>

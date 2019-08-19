@@ -9,10 +9,12 @@ def search(request):
         query = request.GET.get('q')
         submitbutton = request.GET.get('submit')
         if query is not None:
-            lookups = Q(title__icontains=query) | Q(content__icontains=query)
+            lookups = Q(title__icontains=query) | Q(post__icontains=query)
             results = Post.objects.filter(lookups).distinct()
-            context ={'results': results,
-                     'submitbutton': submitbutton}
+            context = {
+                'results': results,
+                'submitbutton': submitbutton
+            }
             return render(request, 'search.html', context)
 
         else:
@@ -40,7 +42,7 @@ def following(request):
 
 def follow(request):
     follow = Connection.objects.create(follower=request.user)
-    follow.save()
+    follow.user.save()
     return redirect('following')
 
 

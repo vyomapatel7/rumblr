@@ -15,7 +15,7 @@ urlpatterns = [
     path('profiles/user/following', views.following, name='following'),
     path('profiles/followers/', views.follower, name='followers'),
     path('search', views.search, name='search'),
-    path('profiles/<id>/follow', views.follow, name='follow'),
+    path('profiles/follow/user', views.follow, name='follow'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

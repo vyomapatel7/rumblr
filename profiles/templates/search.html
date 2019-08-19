@@ -17,10 +17,7 @@ Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search
 		<br/><br/>
 		{% for result in results %}
 
-			{{result.title}}
-			<br/>
-
-			{{result.content}}
+			<a href="{% url 'post' id=result.id %}"> {{result.title}}  </a>
 			<br/>
 
 		{% endfor %}
