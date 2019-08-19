@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Profile, Post, Connection
+from django.db.models import Q
 from profiles.forms import ProfileEditForm, CreatePostForm
 
 
@@ -85,16 +86,6 @@ def create_post(request):
     })
 
 
-def profile(request, id):
-    profile = Profile.objects.get(id=id)
-    post = Post.objects.filter(profile=profile)
-    context = {
-        'profile': profile,
-        'post': post,
-    }
-    return render(request, 'profile.html', context)
-
-
 def post(request, id):
     post = Post.objects.get(id=id)
     profile = Profile.objects.get(post=post)
@@ -146,7 +137,6 @@ def create_profile(request):
                 profile.save()
                 return redirect('profile')
     else:
-        form_class = ProfileEditForm
         form = form_class(instance=profile)
 
     return render(request, 'create_profile.html', {
@@ -166,8 +156,16 @@ def myprofile(request):
             'post': post,
         }
         return render(request, 'profile.html', context)
-    else:
-        form = form_class(instance=profile)
+
+
+def profile(request, id):
+    profile = Profile.objects.get(id=id)
+    post = Post.objects.filter(profile=profile)
+    context = {
+        'profile': profile,
+        'post': post,
+    }
+    return render(request, 'profile.html', context)
 
 
 def about(request):

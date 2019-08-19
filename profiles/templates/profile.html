@@ -3,9 +3,13 @@
 {% block content %}
 <html>
 <body>
-	<div class= "Profile">
+	<div class= "profile">
             <h2>  {{ profile.title }}  </h2>
             <p> {{ profile.bio }} </p>
+            <p> <img src="{{ profile.profile_pic.url }}", style= "width:100px;"/> 
+            {% if not request.user == profile.user %}
+            	<a href="{% url 'follow' id=profile.id %}"> Follow Profile! </a>
+            {% endif %}
             {% if request.user == profile.user %}
             	<a href="{% url 'edit_profile' id=profile.id %}"> Edit your profile! </a>
             {% endif %}
@@ -15,7 +19,6 @@
 	<div class= "Posts">
 		<a href="{% url 'post' id=post.id %}"> {{ post.title }} </a>
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
-		<a href="{% url 'follow' id=profile.id %}"> Follow Profile! </a>
 		{% if request.user == profile.user %}
 			<a href="{% url 'edit_post' id=post.id %}"> Edit this post! </a>
 			<a href="{% url 'delete_post' id=post.id %}"> Delete this post! </a>
