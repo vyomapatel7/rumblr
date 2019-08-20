@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Profile, Post, Connection
+from django.contrib.auth import get_user_model
 from django.db.models import Q
 from profiles.forms import ProfileEditForm, CreatePostForm
 
@@ -40,9 +41,13 @@ def following(request):
     }
     return render(request, 'following.html', context)
 
-def follow(request):
-    follow = Connection.objects.create(follower=request.user)
-    follow.user.save()
+def follow(request, id):
+    follower = request.user
+    following = get_user_model().objects.get(id=id)
+    if Connection.objects.filter(id=id).exists():
+        return redirect('following')
+    else:
+        Connection.objects.create(follower=follower, following=following)
     return redirect('following')
 
 
@@ -163,9 +168,11 @@ def myprofile(request):
 def profile(request, id):
     profile = Profile.objects.get(id=id)
     post = Post.objects.filter(profile=profile)
+    following = Connection.objects.filter(following=request.user)
     context = {
         'profile': profile,
         'post': post,
+        'following': following,
     }
     return render(request, 'profile.html', context)
 

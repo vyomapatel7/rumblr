@@ -1,10 +1,10 @@
 {% extends "base.html" %}    
 {% load static %}
 {% block content %}
-	<div class= "Profile">
+	<div class= "following">
             <h1>  Following  </h1>
             {% for connection in following %}
-            	<p> {{ connection.following.profile.title }} </p>
+            	<a href="{% url 'profile' id=connection.following.profile.id %}"> {{ connection.following.profile.title }} </a>
             {% endfor %}
 	</div>
 {% endblock content %}

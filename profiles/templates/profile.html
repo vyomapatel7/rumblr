@@ -5,10 +5,10 @@
 <body>
 	<div class= "profile">
             <h2>  {{ profile.title }}  </h2>
-            <p> {{ profile.bio }} </p>
+            <h5> {{ profile.bio }} </h5>
             <p> <img src="{{ profile.profile_pic.url }}", style= "width:100px;"/> 
-            {% if not request.user == profile.user %}
-            	<a href="{% url 'follow' %}"> Follow Profile! </a>
+            {% if not request.user == profile.user and following == request.user %}
+            	<a href="{% url 'follow' id=profile.user.id %}"> Follow Profile! </a>
             {% endif %}
             {% if request.user == profile.user %}
             	<a href="{% url 'edit_profile' id=profile.id %}"> Edit your profile! </a>
@@ -16,15 +16,18 @@
 	</div>
 	<br>
 	{% for post in post %}
-	<div class= "Posts">
-		<a href="{% url 'post' id=post.id %}"> {{ post.title }} </a>
+	<div class= "posts">
+		<p> <a href="{% url 'post' id=post.id %}"> {{ post.title }} </a> <p>
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
+	</div>
+	<div class= "postactions">
 		{% if request.user == profile.user %}
-			<a href="{% url 'edit_post' id=post.id %}"> Edit this post! </a>
-			<a href="{% url 'delete_post' id=post.id %}"> Delete this post! </a>
+			<li> <a href="{% url 'edit_post' id=post.id %}"> Edit this post! </a> </li>
+			<li> <a href="{% url 'delete_post' id=post.id %}"> Delete this post! </a> </li>
 		{% endif %}
 	</div>
 	{% endfor %}
+	<br>
 	<div>
 		{% if request.user == profile.user %}
 			<a href="{% url 'create_post' %}"> Create a new post! </a>

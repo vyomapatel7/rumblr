@@ -12,30 +12,27 @@ h1{
     padding-top: 20px;
 }
 
-#nav ul{
-    background-color: #ffcc5f;
-    text-align: center;
-    padding: 10px;
-    color: #ff6f69;
-    width: auto;
-    height: 50px;
+#nav{
+    list-style:none;
+    margin: auto;
+    padding:0;
+    text-align:center;
+    font-size: 15px;
 }
 
 #nav li{
-    font-size:15px;
-    display: inline-block;
-    float: center;
-    margin-right: 20px;
-    width: 170px;
+    display:inline;
+}
+
+#nav a{
+    display:inline-block;
+    padding:10px;
+    padding-right: 50px;
 }
 
 .login,
 .search{
     text-align: center;
-}
-
-p{
-    padding: 10px;
 }
 
 .about_text{
@@ -45,15 +42,42 @@ p{
 .profiles{
 	display: inline-block;
     float: center;
-    margin-left: 100px;
+    margin: auto;
+    text-overflow: ellipsis;
+}
+
+.profiles img{
+	height:200px; 
+	width:200px; 
+	object-fit: cover
 }
 
 .profile{
 	background-color: white;
+	padding-left: 10px;
 }
 
-.Posts{
-	border-bottom: black;
+.profile h2{
+	padding-top: 20px;
+	padding-bottom:0;
 }
 
+.profile h5{
+	padding-top:0;
+}
 
+.profile a{
+	font-size: 15px;
+	display: inline-block;
+	float: right;
+}
+
+.postactions li{
+	font-size: 15px;
+	display: block;
+	float: right;
+}
+
+.following a{
+	text-align: center;
+}
