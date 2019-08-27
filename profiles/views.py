@@ -44,7 +44,7 @@ def following(request):
 def follow(request, id):
     follower = request.user
     following = get_user_model().objects.get(id=id)
-    if Connection.objects.filter(id=id).exists():
+    if Connection.objects.filter(follower=request.user).filter(following=id).exists():
         return redirect('following')
     else:
         Connection.objects.create(follower=follower, following=following)
@@ -168,11 +168,9 @@ def myprofile(request):
 def profile(request, id):
     profile = Profile.objects.get(id=id)
     post = Post.objects.filter(profile=profile)
-    following = Connection.objects.filter(following=request.user)
     context = {
         'profile': profile,
         'post': post,
-        'following': following,
     }
     return render(request, 'profile.html', context)
 
@@ -189,5 +187,3 @@ def home(request):
         'image': image,
     }
     return render(request, 'home.html', context)
-
-

@@ -81,3 +81,9 @@ h1{
 .following a{
 	text-align: center;
 }
+
+.following li,
+.followers li{
+    text-align: center;
+    display: block;
+}

@@ -4,7 +4,7 @@
 	<div class= "following">
             <h1>  Following  </h1>
             {% for connection in following %}
-            	<a href="{% url 'profile' id=connection.following.profile.id %}"> {{ connection.following.profile.title }} </a>
+            	<li> <a href="{% url 'profile' id=connection.following.profile.id %}"> {{ connection.following.profile.title }} </a> </li>
             {% endfor %}
 	</div>
 {% endblock content %}
