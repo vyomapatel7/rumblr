@@ -168,9 +168,11 @@ def myprofile(request):
 def profile(request, id):
     profile = Profile.objects.get(id=id)
     post = Post.objects.filter(profile=profile)
+    connection = Connection.objects.filter(following=profile.user)
     context = {
         'profile': profile,
         'post': post,
+        'connection': connection,
     }
     return render(request, 'profile.html', context)
 

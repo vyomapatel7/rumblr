@@ -7,12 +7,14 @@
             <h2>  {{ profile.title }}  </h2>
             <h5> {{ profile.bio }} </h5>
             <p> <img src="{{ profile.profile_pic.url }}", style= "width:100px;"/> 
-            {% if not request.user == profile.user %}
-            	<a href="{% url 'follow' id=profile.user.id %}"> Follow Profile! </a>
-            {% endif %}
-            {% if request.user == connection.follower %}
-                Following!
-            {% endif %}
+            {% for connection in connection %}
+                {% if connection.follower == request.user %}
+                    <a> Following! </a>
+                {% endif %}
+                {% if not request.user == profile.user and not connection.follower == request.user %}
+                    <a href="{% url 'follow' id=profile.user.id %}"> Follow Profile! </a>
+                {% endif %}
+            {% endfor %}
             {% if request.user == profile.user %}
             	<a href="{% url 'edit_profile' id=profile.id %}"> Edit your profile! </a>
             {% endif %}
@@ -20,7 +22,7 @@
 	<br>
 	{% for post in post %}
 	<div class= "posts">
-		<p><a href="{% url 'post' id=post.id %}"> {{ post.title }} </a> <p>
+		<p> <a href="{% url 'post' id=post.id %}"> {{ post.title }} </a> <p>
 		<p> <img src="{{ post.image.url }}", style= "width:100px;"/> </p>
 	</div>
 	<div class= "postactions">
